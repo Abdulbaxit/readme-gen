@@ -1,0 +1,7 @@
+node_modules
+dist
+.env
+README_TEST.md
+README_NEW.md
+.DS_Store
+*.log
