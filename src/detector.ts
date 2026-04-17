@@ -35,6 +35,11 @@ const FRAMEWORK_MARKERS = [
   { name: 'Ruby on Rails', files: ['Gemfile'], search: /rails/i },
   { name: 'Spring Boot', files: ['pom.xml', 'build.gradle'], search: /spring-boot/i },
   { name: 'Laravel', files: ['composer.json'], search: /laravel\/framework/ },
+  { name: 'Tailwind CSS', files: ['package.json', 'tailwind.config.js', 'tailwind.config.ts'], search: /tailwindcss/ },
+  { name: 'Prisma', files: ['package.json', 'prisma/schema.prisma'], search: /prisma/i },
+  { name: 'Docker', files: ['Dockerfile', 'docker-compose.yml', 'docker-compose.yaml'], search: /./ },
+  { name: 'Svelte', files: ['package.json'], search: /"svelte":/ },
+  { name: 'Angular', files: ['package.json', 'angular.json'], search: /"@angular\/core":/ },
 ];
 
 export async function detectProjectDetails(cwd: string, files: string[]): Promise<DetectionResult> {
