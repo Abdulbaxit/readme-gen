@@ -30,6 +30,7 @@ export async function scanDirectory(cwd: string): Promise<string[]> {
     ignore: IGNORE_PATTERNS,
     dot: true,
     onlyFiles: true,
+    gitignore: true,
   });
   return files;
 }
