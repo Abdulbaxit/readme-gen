@@ -13,6 +13,8 @@ export interface GenerationParams {
   languages: string[];
   frameworks: string[];
   fileTree: string;
+  sections?: string[];
+  tone?: string;
 }
 
 export async function generateReadme(params: GenerationParams): Promise<string> {
@@ -21,6 +23,8 @@ export async function generateReadme(params: GenerationParams): Promise<string> 
   const prompt = `
     You are a professional software documentation expert. Write a human-sounding, professional, and clear README.md for the project described below.
     
+    The tone of the documentation should be: ${params.tone || 'Professional'}.
+    
     ### Project Details:
     - **Name**: ${params.projectName}
     - **Description**: ${params.description || 'A software project.'}
@@ -28,24 +32,25 @@ export async function generateReadme(params: GenerationParams): Promise<string> 
     - **GitHub**: ${params.github}
     - **License**: ${params.license}
     - **Main Languages**: ${params.languages.join(', ')}
-    - **Frameworks/Libraries**: ${params.frameworks.join(', ')}
+    - **Frameworks/Libraries/Tools**: ${params.frameworks.join(', ')}
     
     ### Project Structure:
     \`\`\`
     ${params.fileTree}
     \`\`\`
     
-    Include the following sections:
+    ### Required Sections:
     1.  **Title and Badges** (License, Languages, etc.)
     2.  **Short Description**
     3.  **Features**
     4.  **Getting Started** (Installation and Prerequisites)
     5.  **Usage Examples**
     6.  **Project Structure Description** (briefly explain the core folders based on the tree)
-    7.  **Contributing Guide**
-    8.  **License Information**
+    ${params.sections && params.sections.length > 0 ? `7.  **Additional Sections**: ${params.sections.join(', ')}` : ''}
+    ${params.sections && params.sections.length > 0 ? '8' : '7'}.  **Contributing Guide**
+    ${params.sections && params.sections.length > 0 ? '9' : '8'}.  **License Information**
     
-    Make it look visually appealing with clean markdown.
+    Make it look visually appealing with clean markdown, appropriate emojis, and clear hierarchy.
   `;
 
   if (!apiKey) {

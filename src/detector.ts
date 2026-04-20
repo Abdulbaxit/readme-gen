@@ -40,6 +40,12 @@ const FRAMEWORK_MARKERS = [
   { name: 'Docker', files: ['Dockerfile', 'docker-compose.yml', 'docker-compose.yaml'], search: /./ },
   { name: 'Svelte', files: ['package.json'], search: /"svelte":/ },
   { name: 'Angular', files: ['package.json', 'angular.json'], search: /"@angular\/core":/ },
+  { name: 'Vitest', files: ['package.json', 'vitest.config.ts', 'vitest.config.js'], search: /vitest/ },
+  { name: 'Jest', files: ['package.json', 'jest.config.js', 'jest.config.ts'], search: /jest/ },
+  { name: 'ESLint', files: ['package.json', '.eslintrc.js', '.eslintrc.json', 'eslint.config.js'], search: /eslint/ },
+  { name: 'Prettier', files: ['package.json', '.prettierrc'], search: /prettier/ },
+  { name: 'GitHub Actions', files: ['.github/workflows'], search: /./ },
+  { name: 'Husky', files: ['package.json', '.husky'], search: /husky/ },
 ];
 
 export async function detectProjectDetails(cwd: string, files: string[]): Promise<DetectionResult> {
@@ -59,10 +65,16 @@ export async function detectProjectDetails(cwd: string, files: string[]): Promis
     for (const markerFile of marker.files) {
       const filePath = path.join(cwd, markerFile);
       if (fs.existsSync(filePath)) {
-        const content = fs.readFileSync(filePath, 'utf8');
-        if (marker.search.test(content)) {
+        const stats = fs.statSync(filePath);
+        if (stats.isDirectory()) {
           frameworksSet.add(marker.name);
           break;
+        } else {
+          const content = fs.readFileSync(filePath, 'utf8');
+          if (marker.search.test(content)) {
+            frameworksSet.add(marker.name);
+            break;
+          }
         }
       }
     }

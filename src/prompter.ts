@@ -7,6 +7,8 @@ export interface UserPrompts {
   author: string;
   github: string;
   license: string;
+  sections: string[];
+  tone: string;
 }
 
 export async function promptUserSettings(cwd: string): Promise<UserPrompts> {
@@ -40,6 +42,26 @@ export async function promptUserSettings(cwd: string): Promise<UserPrompts> {
       message: 'Choose a license:',
       choices: ['MIT', 'Apache 2.0', 'GPLv3', 'ISC', 'Unlicense', 'None'],
       default: 'MIT',
+    },
+    {
+      type: 'checkbox',
+      name: 'sections',
+      message: 'Select additional sections to include:',
+      choices: [
+        { name: 'Roadmap', checked: true },
+        { name: 'FAQ' },
+        { name: 'Troubleshooting' },
+        { name: 'Architecture' },
+        { name: 'Environment Variables' },
+        { name: 'Changelog' },
+      ],
+    },
+    {
+      type: 'list',
+      name: 'tone',
+      message: 'Choose the documentation tone:',
+      choices: ['Professional', 'Friendly', 'Minimalist', 'Extensive Technical'],
+      default: 'Professional',
     },
   ]);
 
