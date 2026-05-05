@@ -41,6 +41,6 @@ node dist/index.js /path/to/your/project
 - `-y, --yes`: Skip interactive prompts and use default settings.
 - `-o, --output <filename>`: Specify the output filename (default is `README_NEW.md`).
 
-## 🧪 Development
+## 🧪 Development:
 - `npm run dev`: Run the tool using `ts-node` for faster development.
 - `npm run build`: Compile TypeScript to JavaScript.
