@@ -11,7 +11,7 @@ An AI-powered CLI tool that automates the creation of professional `README.md` f
 
 ## 🛠️ Installation
 
-1. Clone the repository:
+1. Clone the repository
    ```bash
    git clone <your-repo-url>
    cd readme-gen
